@@ -14,10 +14,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'qr-frontend' title`, () => {
+  it(`should have the 'QR Generator' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('qr-frontend');
+    expect(app.title).toEqual('QR Generator');
   });
 
   it('should render title', () => {

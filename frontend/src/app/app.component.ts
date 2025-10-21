@@ -8,4 +8,6 @@ import { QrFormComponent } from './qr-form/qr-form.component';
   template: `<app-qr-form></app-qr-form>`,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'QR Generator';
+}
