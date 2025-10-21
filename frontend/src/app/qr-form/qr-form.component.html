@@ -1,0 +1,41 @@
+<div class = center-wrapper>
+  <h1>QR Code Generator</h1>
+
+  <form (ngSubmit)="generateQR()" #qrForm="ngForm">
+    <div class="content">
+      <label for="name" class="margin">Name:  </label>
+      <input type="text" id="name" name="name" [(ngModel)]="name" class="qr-input" placeholder="Enter Name" required>
+    </div>
+    <div class="content">
+      <label for="contact">Contact: </label>
+      <input type="text" id="contact" name="contact" [(ngModel)]="contact" class="qr-input" placeholder="Enter Contact Number" required>
+    </div>
+    <button type="submit" class="content">Generate QR Code</button>
+  </form>
+
+  <div id="qr-result" *ngIf="qrData">
+    <h3>QR Code:</h3>
+    <!-- For phone scan purpose -->
+    <!-- Scannable QR (img) -->
+    <qrcode
+      [qrdata]="qrData"
+      [width]="300"
+      [errorCorrectionLevel]="'M'"
+      [elementType]="'img'">
+    </qrcode>
+
+    <!-- Hidden one but is using for download -->
+    <!-- Canvas version can scan also but img version more optimized for mobile cameras and QR readers -->
+    <!-- Downloadable QR (canvas, hidden) -->
+    <qrcode
+      #qrCanvas
+      [qrdata]="qrData"
+      [width]="300"
+      [errorCorrectionLevel]="'M'"
+      [elementType]="'canvas'"
+      style="display: none;">
+    </qrcode>
+
+    <button (click)="downloadQR()">Download QR</button>
+  </div>
+</div>
