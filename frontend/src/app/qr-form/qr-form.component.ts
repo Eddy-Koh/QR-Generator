@@ -20,6 +20,11 @@ export class QrFormComponent {
   constructor(private http: HttpClient) {}
 
   generateQR() {
+    const payload = {
+      name: this.name,
+      contact: this.contact
+    };
+
     // Problem: before the first ":" need to have at least 2 word like "Full Name:", "Your Name:". //Error: "Name:" (One word)
 
     //this.qrData = `Name: ${this.name}, Contact: ${this.contact}`; //no working
@@ -30,16 +35,15 @@ export class QrFormComponent {
     //this.qrData = `FullName: ${this.name}, Contact: ${this.contact}`;  //no working
     //this.qrData = `Full Name: ${this.name}\nContact Number: ${this.contact}`; //working
 
-    //Testing example
+    // Testing example
     //this.qrData = 'https://www.google.com';  //working
     //this.qrData = `BEGIN:VCARD\nVERSION:3.0\nFN:${this.name}\nTEL:${this.contact}\nEND:VCARD`; //working
+    //this.qrData= `Name is ${this.name}\nContact is ${this.contact}`; //working
 
-    this.qrData= `Name is ${this.name}\nContact is ${this.contact}`; //working
-
-    console.log('QR Data:', this.qrData);
+    console.log('QR Data:\n', payload);
 
     // Send full vCard string to backend
-    this.http.post('http://localhost:8000/generate-qr', { qrText: this.qrData }, { responseType: 'blob' })
+    this.http.post('http://localhost:8000/generate-qr', payload, { responseType: 'blob' })
       .subscribe(blob => {
         this.qrImageUrl = URL.createObjectURL(blob);
       }, error => {
@@ -48,15 +52,11 @@ export class QrFormComponent {
   }
 
   downloadQR() {
-    const canvas = document.querySelector('canvas');
-    if (!canvas) {
-      console.error('Canvas not found');
-      return;
+    if (this.qrImageUrl) {
+      const link = document.createElement('a');
+      link.href = this.qrImageUrl;
+      link.download = 'qrcode.png';
+      link.click();
     }
-
-    const link = document.createElement('a');
-    link.href = canvas.toDataURL('image/png');
-    link.download = 'qr-code.png';
-    link.click();
   }
 }
