@@ -14,7 +14,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class QrFormComponent {
   name = '';
   contact = '';
-  qrData = '';
+  // qrData = '';
   qrImageUrl: string | null = null;
 
   constructor(private http: HttpClient) {}

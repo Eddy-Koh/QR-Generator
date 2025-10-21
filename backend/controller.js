@@ -6,7 +6,7 @@ exports.generateQR = async (req, res) => {
 		// const { data } = req.body;
 		// const qrCodeText = service.formatData(data);
 
-		// Previous version 2 - Nott use already
+		// Previous version 2 - Not use already
 		// const qrCodeText = req.body.qrText;
 		// console.log('QR Content:\n', qrCodeText);
 
@@ -14,6 +14,7 @@ exports.generateQR = async (req, res) => {
 		const { name, contact } = req.body;
 		// Format as JSON string for QR
 		const qrCodeText = JSON.stringify({ name, contact });
+		console.log('QR Content:\n', qrCodeText);
 
 		const qrCodeBuffer = await service.generateQRCode(qrCodeText);
 
